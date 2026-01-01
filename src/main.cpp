@@ -7,6 +7,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "main.h"
+using namespace pros;
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
@@ -248,23 +249,64 @@ void ez_template_extras() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-  // This is preference to what you like to drive on
-  chassis.drive_brake_set(MOTOR_BRAKE_COAST);
+  chassis.drive_brake_set(MOTOR_BRAKE_HOLD);
+
+  // Controller
+  pros::Controller master(E_CONTROLLER_MASTER);
+
+  // Motors
+  /*
+  pros::Motor intake(7, pros::E_MOTOR_GEAR_BLUE, true);   // 5.5W, reversed
+  pros::Motor inside(8, pros::E_MOTOR_GEAR_GREEN, true); // 600rpm, reversed
+  pros::Motor outtake(9, pros::E_MOTOR_GEAR_BLUE, false); // 5.5W
+  */
+ pros::Motor intake(7);
+ pros::Motor inside(8);
+ pros::Motor outtake(9);
+
+  // Set reversals
+  intake.set_reversed(true);
+  inside.set_reversed(true);
+
 
   while (true) {
-    // Gives you some extras to make EZ-Template ezier
+    // EZ-Template drive
     ez_template_extras();
+    chassis.opcontrol_arcade_standard(ez::SPLIT);
 
-    // chassis.opcontrol_tank();  // Tank control
-    chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
-    // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
-    // chassis.opcontrol_arcade_flipped(ez::SPLIT);    // Flipped split arcade
-    // chassis.opcontrol_arcade_flipped(ez::SINGLE);   // Flipped single arcade
+    // ----- INSIDE MOTOR -----
+    if (master.get_digital(E_CONTROLLER_DIGITAL_L1)) {
+      inside.move(-127); // reverse
+    } 
+    else if (master.get_digital(E_CONTROLLER_DIGITAL_L2)) {
+      inside.move(127);  // forward
+    } 
+    else {
+      inside.move(0);
+    }
 
-    // . . .
-    // Put more user control code here!
-    // . . .
+    // ----- INTAKE MOTOR -----
+    if (master.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+      intake.move(-127); // reverse
+    } 
+    else if (master.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+      intake.move(127);  // forward
+    } 
+    else {
+      intake.move(0);
+    }
 
-    pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
+    // ----- OUTTAKE MOTOR -----
+    if (master.get_digital(E_CONTROLLER_DIGITAL_X)) {
+      outtake.move(127); // forward
+    } 
+    else if (master.get_digital(E_CONTROLLER_DIGITAL_Y)) {
+      outtake.move(-127); // reverse
+    } 
+    else {
+      outtake.move(0);
+    }
+
+    pros::delay(ez::util::DELAY_TIME);
   }
 }
