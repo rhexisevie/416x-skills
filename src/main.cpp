@@ -13,12 +13,12 @@ using namespace pros;
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
 /////
-
+// radio is port 13
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {1, -2, -3},     // Left Chassis Ports (negative port will reverse it!)
-    {4, -5, -6},  // Right Chassis Ports (negative port will reverse it!)
+    {1, 2, itgoesnowhere},   // Left Chassis Ports (negative port will reverse it!)
+    {17, -19, -20},  // Right Chassis Ports (negative port will reverse it!)
 
     10,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -260,9 +260,9 @@ void opcontrol() {
   pros::Motor inside(8, pros::E_MOTOR_GEAR_GREEN, true); // 600rpm, reversed
   pros::Motor outtake(9, pros::E_MOTOR_GEAR_BLUE, false); // 5.5W
   */
- pros::Motor intake(7);
- pros::Motor inside(8);
- pros::Motor outtake(9);
+ pros::Motor intake(13);
+ pros::Motor inside(18);
+ pros::Motor outtake(12);
 
   // Set reversals
   intake.set_reversed(true);
