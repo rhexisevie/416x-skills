@@ -255,19 +255,18 @@ void opcontrol() {
   pros::Controller master(E_CONTROLLER_MASTER);
 
   // Motors
-  /*
-  pros::Motor intake(7, pros::E_MOTOR_GEAR_BLUE, true);   // 5.5W, reversed
-  pros::Motor inside(8, pros::E_MOTOR_GEAR_GREEN, true); // 600rpm, reversed
-  pros::Motor outtake(9, pros::E_MOTOR_GEAR_BLUE, false); // 5.5W
-  */
- pros::Motor intake(13);
- pros::Motor inside(18);
- pros::Motor outtake(12);
+  pros::Motor intake(11);
+  pros::Motor inside(18);
+  pros::Motor outtake(12);
 
   // Set reversals
   intake.set_reversed(true);
   inside.set_reversed(true);
 
+  // set braking
+  intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  inside.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  outtake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
   while (true) {
     // EZ-Template drive
