@@ -17,7 +17,7 @@ using namespace pros;
 // Chassis constructor
 ez::Drive chassis(
     // drive motors, first motor used for sensing!
-    {-1, -2, -3},   // Left Chassis Ports (negative will reverse!)
+    {1, -2, -3},   // Left Chassis Ports (negative will reverse!)
     {17, -19, 20},  // Right Chassis Ports (negative will reverse!)
 
     10,      // IMU Port
