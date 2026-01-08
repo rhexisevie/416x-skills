@@ -87,6 +87,11 @@ void initialize() {
   chassis.initialize();
   ez::as::initialize();
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
+  /*
+  pros::ADIDigitalOut matchloader ('A');
+  pros::ADIDigitalOut hood ('B');
+  pros::ADIDigitalOut wingdom ('C');
+  */
 }
 
 /**
