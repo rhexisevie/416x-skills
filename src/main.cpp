@@ -87,11 +87,6 @@ void initialize() {
   chassis.initialize();
   ez::as::initialize();
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
-  /*
-  pros::ADIDigitalOut matchloader ('A');
-  pros::ADIDigitalOut hood ('B');
-  pros::ADIDigitalOut wingdom ('C');
-  */
 }
 
 /**
@@ -273,6 +268,11 @@ void opcontrol() {
   inside.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   outtake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
+  ///*
+  pros::ADIDigitalOut matchloader ('A');
+  pros::ADIDigitalOut wingodom ('B');
+  //*/
+
   while (true) {
     // EZ-Template drive
     ez_template_extras();
@@ -310,6 +310,19 @@ void opcontrol() {
     else {
       outtake.move(0);
     }
+
+    // ----- PNEUMATICS MATCHLOADER & WING+ODOM ----- 
+    ///*
+    if (master.get_digital(E_CONTROLLER_DIGITAL_A)) {
+      matchloader.set_value(true); // extend matchloader
+    } 
+    else if (master.get_digital(E_CONTROLLER_DIGITAL_B)) {
+      wingodom.set_value(true); // extend wing + odom??
+    } 
+    else {
+      matchloader.set_value(false); // retract matchloader  
+      wingodom.set_value(false); // retract wingodom 
+    } //*/
 
     pros::delay(ez::util::DELAY_TIME);
   }
