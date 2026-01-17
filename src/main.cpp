@@ -17,7 +17,7 @@ using namespace pros;
 // Chassis constructor
 ez::Drive chassis(
     // drive motors, first motor used for sensing!
-    {1, -2, -3},   // Left Chassis Ports (negative will reverse!)
+    {-2, 1, -3},   // Left Chassis Ports (negative will reverse!)
     {17, -19, 20},  // Right Chassis Ports (negative will reverse!)
 
     10,      // IMU Port
@@ -51,7 +51,7 @@ void initialize() {
   // Look at your vertical tracking wheel and decide if it's to the left or right of the center of the robot
   //  - change `left` to `right` if the tracking wheel is to the right of the centerline
   //  - ignore this if you aren't using a vertical tracker
-  // chassis.odom_tracker_left_set(&vert_tracker);
+  chassis.odom_tracker_left_set(&vert_tracker);
 
   // Configure your chassis controls
   chassis.opcontrol_curve_buttons_toggle(true);   // Enables modifying the controller curve with buttons on the joysticks
@@ -66,18 +66,18 @@ void initialize() {
   // chassis.opcontrol_curve_buttons_right_set(pros::E_CONTROLLER_DIGITAL_Y, pros::E_CONTROLLER_DIGITAL_A);
 
   // Autonomous Selector using LLEMU
-  ez::as::auton_selector.autons_add({
+  // ez::as::auton_selector.autons_add({
       //{"Troubleshoot\n\nNormal drive and turn, repeated with slew", troubleshoot_thing},
-      {"Drive\n\nDrive forward and come back", drive_example},
-      {"Turn\n\nTurn 3 times.", turn_example},
-      {"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
-      {"Drive and Turn\n\nSlow down during drive", wait_until_change_speed},
-      {"Swing Turn\n\nSwing in an 'S' curve", swing_example},
-      {"Motion Chaining\n\nDrive forward, turn, and come back, but blend everything together :D", motion_chaining},
-      {"Combine all 3 movements", combining_movements},
-      {"Interference\n\nAfter driving forward, robot performs differently if interfered or not", interfered_example},
-      {"Simple Odom\n\nThis is the same as the drive example, but it uses odom instead!", odom_drive_example},
-      {"Measure Offsets\n\nThis will turn the robot a bunch of times and calculate your offsets for your tracking wheels.", measure_offsets},
+      //{"Drive\n\nDrive forward and come back", drive_example},
+      //{"Turn\n\nTurn 3 times.", turn_example},
+      //{"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
+      //{"Drive and Turn\n\nSlow down during drive", wait_until_change_speed},
+      //{"Swing Turn\n\nSwing in an 'S' curve", swing_example},
+      //{"Motion Chaining\n\nDrive forward, turn, and come back, but blend everything together :D", motion_chaining},
+      //{"Combine all 3 movements", combining_movements},
+      //{"Interference\n\nAfter driving forward, robot performs differently if interfered or not", interfered_example},
+      //{"Simple Odom\n\nThis is the same as the drive example, but it uses odom instead!", odom_drive_example},
+      //{"Measure Offsets\n\nThis will turn the robot a bunch of times and calculate your offsets for your tracking wheels.", measure_offsets},
   });
 
   // Initialize chassis and auton selector
